@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% load static %}
+  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="icon" href="{% static 'images/logo.jpg' %}" type="image/gif" sizes="12x12">
+<script src="https://kit.fontawesome.com/9234ad5b48.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&family=Dongle&family=Dosis:wght@800&family=Faster+One&family=Inconsolata:wght@300&family=Luxurious+Roman&family=Trade+Winds&display=swap" rel="stylesheet">
+
+
+<!--   <script>
+ function scrollToBottom() {
+    let objDiv = document.getElementById("dis");
+    objDiv.scrollTop = objDiv.scrollHeight;
+}
+scrollToBottom();   
+  </script> -->
+ 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.abody {
+  margin: 0 auto;
+  max-width:1000px;
+ margin-top: 5%;
+ margin-left:1%;
+ height: 100%;
+}
+.container {
+
+border-radius: 5px;
+padding: 10px;
+margin: 10px 0;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+.topi{
+    background:  #66ccff;
+      
+font-family: 'Trade Winds', cursive;
+    padding-top:1%;
+   padding-bottom: 0.4%;
+   position: fixed;
+   top: 0;
+   width: 100%;
+  }
+  body{
+    margin: 0;
+  }
+</style>
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div align='center' class="topi">
+    <h1> <a href="{% url 'home'%}" style="text-decoration:none ;color: black;font-weight: bolder;  "> Chat Room</a></h1>
+    </div> 
+
+
+
+    <div class="abody"> 
+
+<h2>{{room}} - DjChat welcome - {{username}}</h2>
+<a href="{% url 'home'%}" style="text-decoration:none ;color: black;font-weight: bolder;  "> Exit Room</a>
+
+  
+  <div id="display"  style="max-height: 480px; overflow-y:scroll" >
+
+        <!-- <div class="container darker">
+          <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
+          <span class="time-left">20th, April 2021</span>
+        </div> -->
+
+  </div>
+</div>
+</div>
+
+<script>
+ 
+$(document).ready(function(){
+  
+  
+ 
+
+  function loadLog(){ 
+  var oldscrollHeight = $("#display")[0].scrollHeight - 20;
+    $.ajax({
+        type: 'GET',
+        url : "/getMessages/{{room}}/",
+        success: function(response){
+         
+            console.log(response);
+            
+            $("#display").empty();
+            
+            for (var key in response.messages)
+            {
+              var temp="<div class='container darker left'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+','+response.messages[key].time+ "</span></div>" ;
+                $("#display").append(temp);
+                
+            } 
+
+            var newscrollHeight = $("#display")[0].scrollHeight - 20;
+            if(newscrollHeight > oldscrollHeight){
+            $("#display").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
+      }
+      
+        },
+        error: function(response){
+            alert('An error occured')
+        }  
+    }  );  
+}
+
+setInterval (loadLog, 1000);
+
+})
+
+</script>
+
+    <style>
+    input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+    }
+
+   
+
+    div {
+    border-radius: 5px;
+    
+    }
+    .send{
+     margin-top: 1%;
+    }
+    .footer{
+      position: fixed;
+      bottom: 0;
+  width: 100%;
+  
+ 
+    }
+    </style>
+
+    <form id="post-form">
+        {% csrf_token %}
+        <input type="hidden" name="username" id="username" value="{{username}}"/>
+        <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+
+        <div class="container footer align-items-center" >
+         
+          <div class="row">
+            <div class="col-10 col-sm-10" id='new'>
+              <input type="text" name="message" placeholder="Message" class='form-control' id="message" />
+            </div>
+            <div class="col-2 col-sm-2 send">
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-play-circle fa-lg"></i>&nbsp; Send
+              
+            </button>
+            </div>
+          </div>
+        </div>
+    </form>
+</div>
+
+</body>
+
+<script type="text/javascript">
+ 
+  $(document).on('submit','#post-form',function(e){
+    e.preventDefault();
+
+    $.ajax({
+      type:'POST',
+      url:'/send',
+      data:{
+          username:$('#username').val(),
+          room_id:$('#room_id').val(),
+          message:$('#message').val(),
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+      },
+      success: function(data){
+         //alert(data)
+      }
+    });
+    document.getElementById('message').value = ''
+  });
+</script>
+
+</html>
+
